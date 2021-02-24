@@ -10,15 +10,19 @@ print_empty_lines() {
 }
 
 print_settings(){
-    echo "---" 
-    get_settings $1 $2
-    echo "---"
+    SETTINGS=$(get_settings $1 $2)
+    if [[ ! -z $SETTINGS ]] ; then
+        echo "---" 
+        echo "$SETTINGS"  
+        echo "---"
+    fi
 }
 
 create_frontmatter() {
     print_settings "settingsGeneral" "${BASE_DIR}/settingsGlobal.yml"
     if [[ $1 = "book" ]] ; then
-        print_settings "settingsBook" "${BASE_DIR}/settingsGlobal.yml" 
+    ASDF=3
+       print_settings "settingsBook" "${BASE_DIR}/settingsGlobal.yml" 
         print_settings "settingsGeneral" "settings.yml" 
         print_settings "settingsBook" "settings.yml"
     else
@@ -40,11 +44,13 @@ get_automatic_books(){
 }
 
 get_manual_book_source(){
-        sed -n "/^${S}*MANUAL_BOOK/{s/.*\[//;s/,.*//;s/\]//;p}" settingsGlobal.yml
+        sed -n "/^${S}MANUAL_BOOK/{s/.*\[//;s/,.*//;s/\]//;p}" settingsGlobal.yml
 }
 
 get_settings() {
-      awk "/$1/,/\(?!\)/" $2 | sed "1d;/settings.*:${S}$/{s/.*//;q}" 
+      #awk "/$1/,/\(?!\)/" $2 | sed "1d;/settings.*:${S}$/{s/.*//;q}" 
+        awk "/$1/,/\(?!\)/" $2 | sed "1d;s/^${S}//;/settings.*:${S}$/{s/.*//;q}" 
+
 }
 
 yml_to_env() {

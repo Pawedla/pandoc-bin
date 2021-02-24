@@ -41,7 +41,7 @@ if [[ ${BOOK} = true ]] ; then
     # Combine files
     while read p; do
         if [[ $p = "./settings.yml" ]] ; then
-            create_frontmatter "book" > $FILENAME_TEMP
+            [[ ! $OUTPUT_FORMAT = "docx" ]] && create_frontmatter "book" > $FILENAME_TEMP
         else
             DIR=$(dirname "${p}")
             if [[ $(basename "${p}") = "settings.yml" ]] ; then
@@ -55,7 +55,7 @@ if [[ ${BOOK} = true ]] ; then
     done < $FILENAME_TEMP.index  
     
 else
-    create_frontmatter "single" > $FILENAME_TEMP
+     [[ ! $OUTPUT_FORMAT = "docx" ]] && create_frontmatter "single" > $FILENAME_TEMP
     sed '0,/#.*/s///' ${BASENAME}${MARKDOWN_EXTENSION} >> $FILENAME_TEMP
     print_empty_lines ${FILENAME_TEMP}
 fi
@@ -68,9 +68,9 @@ fi
 
 ## pandoc-crossref
 if [[ ${PANDOC_CROSSREF} = true ]] ; then
-    [[ -e "$BIN_DIR/pandoc-crossref.yml" ]] && CROSSREF_PRESET_FILE="$BASE_DIR/$BIN_DIR/pandoc-crossref.yml"
-    [[ -e "$BASE_DIR/pandoc-crossref.yml" ]] && CROSSREF_PRESET_FILE="$BIN_DIR/pandoc-crossref.yml"
-    [[ -e "$WORKING_DIR/pandoc-crossref.yml" ]] && CROSSREF_PRESET_FILE="$BIN_DIR/pandoc-crossref.yml"
+    #[[ -e "$BIN_DIR/pandoc-crossref.yml" ]] && CROSSREF_PRESET_FILE="$BIN_DIR/pandoc-crossref.yml"
+    [[ -e "$BASE_DIR/pandoc-crossref.yml" ]] && CROSSREF_PRESET_FILE="$BASE_DIR/pandoc-crossref.yml"
+    [[ -e "$WORKING_DIR/pandoc-crossref.yml" ]] && CROSSREF_PRESET_FILE="$WORKING_DIR/pandoc-crossref.yml"
     COMMAND_CROSSREF="--filter pandoc-crossref -M crossrefYaml=${CROSSREF_PRESET_FILE}"
 fi
 
@@ -105,6 +105,8 @@ fi
 
 mkdir -p "$OUTPUT_DIR"
 echo OUTPUT_FILE "$OUTPUT_DIR/$BASENAME.${OUTPUT_FORMAT}"
+
+
 echo ${PANDOC_COMMAND} $FILENAME_TEMP -o \""$OUTPUT_DIR/$BASENAME.${OUTPUT_FORMAT}"\" \
     ${FILTER_DEMOTE_HEADER} \
     ${COMMAND_CROSSREF} \
@@ -117,15 +119,15 @@ echo ${PANDOC_COMMAND} $FILENAME_TEMP -o \""$OUTPUT_DIR/$BASENAME.${OUTPUT_FORMA
     ${COMMAND_TOP_LEVEL_DIVISION} \
     ${CUSTOM} \
     ${CUSTOM_APPEND} \
-    -V logo-jku=$BASE_DIR/.pandoc/templates/jku_de.pdf \
-    -V logo-k=$BASE_DIR/.pandoc/templates/arr.pdf \
-    -V img-cc=$BASE_DIR/.pandoc/templates/cc.png > start.sh 
+    -V logo-jku=$BASE_DIR/base/.pandoc/templates/jku_de.pdf \
+    -V logo-k=$BASE_DIR/base/.pandoc/templates/arr.pdf \
+    -V img-cc=$BASE_DIR/base/.pandoc/templates/cc.png > start.sh 
 
 bash start.sh
 
 sudo rm start.sh
 #[[ -e ${BASE_DIR}/debug.env ]] && sudo rm debug.env
 #[[ -e $FILENAME_TEMP.index ]] && sudo rm $FILENAME_TEMP.index
-#sudo rm -rf TEMP_*
+sudo rm -rf TEMP_*
 echo Finished $BASENAME.${OUTPUT_FORMAT}
 echo 
