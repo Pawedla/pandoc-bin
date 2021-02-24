@@ -1,0 +1,27 @@
+---
+# titelpage settings
+titlepage: true
+jku: true
+date: \today
+
+# jku related settings
+project: project title
+contributors: ["Max Mustermann"]
+contact: max@mustermann.at
+
+# language settings
+lang: de
+
+# link settings
+colorlinks: true
+
+# toc settings
+numbersections: true
+toc: true
+lof: true
+
+# other settings
+verbatim-in-note: true
+codeBlockCaptions: true
+caption-justification: centering
+---

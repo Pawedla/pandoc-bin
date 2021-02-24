@@ -1,0 +1,21 @@
+---
+# titelpage settings
+titlepage: true
+date: \today
+
+# language settings
+lang: de
+
+# link settings
+colorlinks: true
+
+# toc settings
+numbersections: true
+toc: true
+lof: true
+
+# other settings
+verbatim-in-note: true
+codeBlockCaptions: true
+caption-justification: centering
+---
