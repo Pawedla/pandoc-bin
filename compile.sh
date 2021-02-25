@@ -22,4 +22,6 @@ if [[ ${OUTPUT_FORMAT_DOCX} = true ]] ; then
     [[ ${CREATE_SINGLE_PAGES} = true ]] && find . -maxdepth ${SEARCH_DEPTH} -type f -name "${MARKDOWN_FILENAME}${MARKDOWN_EXTENSION}" -not -path '*/\.*' -print0 | xargs -0 -I{} -n1 -P${THREADS} /bin/bash -c './base/bin/make-files.sh --docx --source "{}" '
 fi
 
+echo FINISHED CREATION
+
 
