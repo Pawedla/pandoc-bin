@@ -76,7 +76,7 @@ fi
 
 # pandoc-citeproc
 if [[ ${PANDOC_CITEPROC} = true ]] ; then
-    COMMAND_CITEPROC="--citeproc"
+    COMMAND_CITEPROC="--filter pandoc-citeproc"
     [[ -e ${BASE_DIR}/${CITEPROC_BIBLIOGRAPHY} && ${BIBLIOGRAPHY_BY_DIRECTORY} = false ]] && COMMAND_CITEPROC="${COMMAND_CITEPROC} -M bibliography=$BASE_DIR/${CITEPROC_BIBLIOGRAPHY} -M link-citations -M reference-section-title=Literaturverzeichnis"
     [[ -n ${CITEPROC_STYLE} && -e ${BASE_DIR}/.pandoc/csl/${CITEPROC_STYLE} ]] && COMMAND_CITEPROC="${COMMAND_CITEPROC} --csl=${BASE_DIR}/.pandoc/csl/${CITEPROC_STYLE}"
 fi
