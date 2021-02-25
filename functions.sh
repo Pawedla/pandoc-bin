@@ -19,16 +19,21 @@ print_settings(){
 }
 
 create_frontmatter() {
+        print_settings "settingsGeneral" "${BASE_DIR}/settingsGlobal.yml"
+
     if [[ $1 = "book" ]] ; then
-        print_settings "settingsBook" "settings.yml"
-        print_settings "settingsGeneral" "settings.yml" 
         print_settings "settingsBook" "${BASE_DIR}/settingsGlobal.yml" 
-    else
-        print_settings "settingsSingle" "settings.yml" 
         print_settings "settingsGeneral" "settings.yml" 
+        print_settings "settingsBook" "settings.yml"
+
+
+    else
         print_settings "settingsSingle" "${BASE_DIR}/settingsGlobal.yml" 
+        print_settings "settingsGeneral" "settings.yml" 
+        print_settings "settingsSingle" "settings.yml" 
+
+
     fi
-    print_settings "settingsGeneral" "${BASE_DIR}/settingsGlobal.yml"
 }
 
 get_manual_books() {
