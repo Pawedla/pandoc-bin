@@ -125,9 +125,9 @@ echo ${PANDOC_COMMAND} $FILENAME_TEMP -o \""$OUTPUT_DIR/$BASENAME.${OUTPUT_FORMA
 
 bash start.sh
 
-sudo rm start.sh
-#[[ -e ${BASE_DIR}/debug.env ]] && sudo rm debug.env
-#[[ -e $FILENAME_TEMP.index ]] && sudo rm $FILENAME_TEMP.index
-sudo rm -rf TEMP_*
+rm start.sh
+[[ -e ${BASE_DIR}/debug.env ]] && rm ${BASE_DIR}/debug.env
+[[ -e $FILENAME_TEMP.index ]] && rm $FILENAME_TEMP.index
+rm $FILENAME_TEMP
 echo Finished $BASENAME.${OUTPUT_FORMAT}
 echo 
