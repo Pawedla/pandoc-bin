@@ -11,14 +11,15 @@ print_empty_lines() {
 
 print_settings(){
     SETTINGS=$(get_settings $1 $2)
-    if [[ ! -z $SETTINGS ]] ; then
-        echo "---" 
-        echo "$SETTINGS"  
-        echo "---"
-    fi
+    #if [[ ! -z $SETTINGS ]] ; then
+     #   echo "---" 
+    echo "$SETTINGS"  
+       # echo "---"
+    #fi
 }
 
 create_frontmatter() {
+    echo "---"
     print_settings "settingsGeneral" "${BASE_DIR}/settingsGlobal.yml"
     if [[ $1 = "book" ]] ; then
     ASDF=3
@@ -30,6 +31,8 @@ create_frontmatter() {
         print_settings "settingsGeneral" "settings.yml" 
         print_settings "settingsSingle" "settings.yml" 
     fi
+    echo "---"
+
 }
 
 get_manual_books() {
