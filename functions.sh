@@ -19,20 +19,15 @@ print_settings(){
 }
 
 create_frontmatter() {
-        print_settings "settingsGeneral" "${BASE_DIR}/settingsGlobal.yml"
-
+    print_settings "settingsGeneral" "${BASE_DIR}/settingsGlobal.yml"
     if [[ $1 = "book" ]] ; then
         print_settings "settingsBook" "${BASE_DIR}/settingsGlobal.yml" 
         print_settings "settingsGeneral" "settings.yml" 
         print_settings "settingsBook" "settings.yml"
-
-
     else
         print_settings "settingsSingle" "${BASE_DIR}/settingsGlobal.yml" 
         print_settings "settingsGeneral" "settings.yml" 
         print_settings "settingsSingle" "settings.yml" 
-
-
     fi
 }
 
@@ -52,9 +47,7 @@ get_manual_book_source(){
 }
 
 get_settings() {
-      #awk "/$1/,/\(?!\)/" $2 | sed "1d;/settings.*:${S}$/{s/.*//;q}" 
         awk "/$1/,/\(?!\)/" $2 | sed "1d;s/^${S}//;/settings.*:${S}$/{s/.*//;q}" 
-
 }
 
 yml_to_env() {
@@ -67,7 +60,7 @@ store_env(){
     if [[  $1 =~ .env ]] ; then
         cat $1 >> $2
     else
-        yml_to_env "$(get_settings "settingsEnv" $1)" >> $2
+        yml_to_env "$(get_settings "settingsGeneralEnv" $1)" >> $2
         if [[ $3 = true ]] ; then 
                 yml_to_env "$(get_settings "settingsBookEnv" $1)" >> $2
         else 
