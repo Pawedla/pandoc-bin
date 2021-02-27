@@ -127,6 +127,7 @@ echo ${PANDOC_COMMAND} $FILENAME_TEMP -o \""$OUTPUT_DIR/$BASENAME.${OUTPUT_FORMA
     -V img-cc=$BASE_DIR/base/.pandoc/templates/cc.png > start.sh 
 
 cat $FILENAME_TEMP
+cat start.sh
 bash start.sh
 
 rm start.sh
