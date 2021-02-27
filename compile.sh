@@ -12,6 +12,9 @@ source debug.env
 export DEBUG
 
 if [[ ${OUTPUT_FORMAT_PDF} = true ]] ; then
+
+    echo automatic books
+    get_automatic_books
     [[ ${CREATE_AUTOMATIC_BOOKS} = true ]] && get_automatic_books | xargs -d '\n' -I{} -n1 -P${THREADS} /bin/bash -c './base/bin/make-files.sh --a --pdf --source "{}" '
     [[ ${CREATE_MANUAL_BOOKS} = true ]] && get_manual_book_source | xargs -d '\n' -I{} -n1 -P${THREADS} /bin/bash -c './base/bin/make-files.sh --m --pdf --source "{}" '
     [[ ${CREATE_FROM_SINGLE_SRC} = true ]] && find . -maxdepth ${SEARCH_DEPTH} -type f -name "${MARKDOWN_FILENAME}${MARKDOWN_EXTENSION}" -not -path '*/\.*' -print0 | xargs -0 -I{} -n1 -P${THREADS} /bin/bash -c './base/bin/make-files.sh --pdf --source "{}" '
