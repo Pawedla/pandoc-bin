@@ -35,12 +35,12 @@ get_manual_books() {
     MANUAL_BOOK=$(echo $1 |  sed 's/[./]/\\&/g')
     while read -r line; do
     find "$line" -type f -maxdepth 1 \( -name "*.yml" -o -name "*.md" \) | sort -r
-    done < <( sed -n "/^${S}MANUAL_BOOK:${S}."${MANUAL_BOOK}"/{s/.*\[//;s/,${S}/\n/g;s/\]//;p;q}" ${BASE_DIR}/settingsGlobal.yml )
-    #| sed '1s/.*/./') 
+    done < <( sed -n "/^${S}MANUAL_BOOK:${S}."${MANUAL_BOOK}"/{s/.*\[//;s/,${S}/\n/g;s/\]//;p;q}" ${BASE_DIR}/settingsGlobal.yml | sed '1s/.*/./' ) 
 }
 
 get_automatic_books(){
-    sed -n "/^${S}AUTOMATIC_BOOKS:${S}/{s/.*\[//;s/,${S}/\n/g;s/\]//;p;q}" settingsGlobal.yml | sed '1s/.*/./'
+    sed -n "/^${S}AUTOMATIC_BOOKS:${S}/{s/.*\[//;s/,${S}/\n/g;s/\]//;p;q}" settingsGlobal.yml
+    #| sed '1s/.*/./'
 }
 
 get_manual_book_source(){
