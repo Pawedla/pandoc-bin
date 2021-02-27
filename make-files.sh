@@ -28,7 +28,7 @@ done
 # Setup environment variables
 source $(dirname "$0")/setup.sh 
 if [ ! -d "$WORKING_DIR" ]; then
-  echo "No such Directory: ${DIR}"
+  echo "No such Directory: ${WORKING_DIR}"
   exit
 fi
 cd "$WORKING_DIR"
