@@ -89,10 +89,15 @@ if [[ ${PANDOC_CROSSREF} = true ]] ; then
 fi
 
 # pandoc-citeproc
+# TODO add CSL and options
 if [[ ${PANDOC_CITEPROC} = true ]] ; then
     COMMAND_CITEPROC="--filter pandoc-citeproc"
-    [[ -e ${BASE_DIR}/${CITEPROC_BIBLIOGRAPHY} && ${BIBLIOGRAPHY_BY_DIRECTORY} = false ]] && COMMAND_CITEPROC="${COMMAND_CITEPROC} -M bibliography=$BASE_DIR/${CITEPROC_BIBLIOGRAPHY} -M link-citations -M reference-section-title=Literaturverzeichnis"
-    [[ -n ${CITEPROC_STYLE} && -e ${BASE_DIR}/.pandoc/csl/${CITEPROC_STYLE} ]] && COMMAND_CITEPROC="${COMMAND_CITEPROC} --csl=${BASE_DIR}/.pandoc/csl/${CITEPROC_STYLE}"
+    if [[ -e ${BASE_DIR}/${CITEPROC_BIBLIOGRAPHY} && ${BIBLIOGRAPHY_BY_DIRECTORY} = false ]] ; then
+        COMMAND_CITEPROC="${COMMAND_CITEPROC} -M bibliography=$BASE_DIR/${CITEPROC_BIBLIOGRAPHY} -M link-citations -M reference-section-title=Literaturverzeichnis"
+    fi
+    if [[ -n ${CITEPROC_STYLE} && -e ${BASE_DIR}/base/.pandoc/csl/${CITEPROC_STYLE} ]] ; then
+        COMMAND_CITEPROC="${COMMAND_CITEPROC} --csl=${BASE_DIR}/base/.pandoc/csl/${CITEPROC_STYLE}"
+    fi
 fi
 
 # qr code for youtube videos
