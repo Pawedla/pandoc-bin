@@ -33,11 +33,11 @@ else
 fi
 
 # Read minimum base enviroment variables
-store_env "${BIN_DIR}/base.env" debug.env $BOOK "base enviroment file"
-store_env "${BASE_DIR}/settingsGlobal.yml" debug.env $BOOK "file for project enviroment"
-yml_to_env "$(get_settings "settingsCompile" "./settingsGlobal.yml")" | sed -n "/MARKDOWN_EXTENSION=/{p;q}" >> debug.env
-store_env "${WORKING_DIR}/settings.yml" debug.env $BOOK "file for wdir enviroment"
-source ./debug.env
+store_env "${BIN_DIR}/base.env" settings.env $BOOK "base enviroment file"
+store_env "${BASE_DIR}/settingsGlobal.yml" settings.env $BOOK "file for project enviroment"
+yml_to_env "$(get_settings "settingsCompile" "./settingsGlobal.yml")" | sed -n "/MARKDOWN_EXTENSION=/{p;q}" >> settings.env
+store_env "${WORKING_DIR}/settings.yml" settings.env $BOOK "file for wdir enviroment"
+source ./settings.env
 
 [[ ${DEBUG} = true ]] && printf "%-40s%s\n" "Basename:" ${BASENAME}
 [[ ${DEBUG} = true ]] && printf "%100s\n" |tr " " "="
