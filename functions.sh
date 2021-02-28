@@ -1,14 +1,17 @@
+# regex for space in sed commands
 S="[[:space:]]*"
 
 sleep_one_second() {
     sleep `printf "0.%04d\n" $(( RANDOM % 10000 ))`
 }
 
+# prints empty lines; $1 = file path
 print_empty_lines() {
       echo >> $1
       echo >> $1
 }
 
+# prints settings with whole yml header if get_settings returns something; $1 = group name, $2 = file path
 print_settings(){
     SETTINGS=$(get_settings $1 $2)
     if [[ ! -z $SETTINGS ]] ; then
@@ -18,6 +21,7 @@ print_settings(){
     fi
 }
 
+# generates yaml headers (variables cannot be overridden in the same header)
 create_frontmatter() {
     print_settings "settingsGeneral" "${BASE_DIR}/settingsGlobal.yml"
     if [[ $1 = "book" ]] ; then
@@ -31,6 +35,7 @@ create_frontmatter() {
     fi
 }
 
+# gets all files of directories from MANUAL_BOOK array for given source; $1 = first entry in MANUAL_BOOK
 get_manual_books() {
     MANUAL_BOOK=$(echo $1 |  sed 's/[./]/\\&/g')
     while read -r line; do
@@ -38,19 +43,23 @@ get_manual_books() {
     done < <( sed -n "/^${S}MANUAL_BOOK:${S}."${MANUAL_BOOK}"/{s/.*\[//;s/,${S}/\n/g;s/\]//;p;q}" ${BASE_DIR}/settingsGlobal.yml | sed '1s/.*/./' ) 
 }
 
+# gets directories of paths defined in AUTOMATIC_BOOKS Array
 get_automatic_books(){
     sed -n "/^${S}AUTOMATIC_BOOKS:${S}/{s/.*\[//;s/,${S}/\n/g;s/\]//;p;q}" settingsGlobal.yml
     #| sed '1s/.*/./'
 }
 
+# gets gets directories of paths defined in MANUAL_BOOK Arrays (first entry)
 get_manual_book_source(){
         sed -n "/^${S}MANUAL_BOOK/{s/.*\[//;s/,.*//;s/\]//;p}" settingsGlobal.yml
 }
 
+# gets settings for a given group; $1 = group name, $2 = file path
 get_settings() {
         awk "/$1/,/\(?!\)/" $2 | sed "1d;s/^${S}//;/settings.*:${S}$/{s/.*//;q}" 
 }
 
+# parses yml settings to env syntax
 yml_to_env() {
     echo "$@"| sed "s/:${S}/=/" 
 }
