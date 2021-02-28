@@ -14,9 +14,9 @@ pip install -r ./base/.pandoc/requirements.txt --no-binary :all:
 echo debugSettings
 get_settings "settingsCompile" "./settingsGlobal.yml"
 # loading env settings
-yml_to_env "$(get_settings "settingsCompile" "./settingsGlobal.yml")" | sed "s/.*\[.*\].*//" > debug.env
+yml_to_env "$(get_settings "settingsCompile" "./settingsGlobal.yml")" | sed "s/.*\[.*\].*//" > settings.env
 source base/bin/base.env
-source debug.env
+source settings.env
 export DEBUG
 
 # generate Documents according to loaded settings (Type: automatic book, manual book, single source; format: pdf, docx)
