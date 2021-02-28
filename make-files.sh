@@ -145,7 +145,7 @@ cat start.sh
 bash start.sh
 # remove files
 rm start.sh
-[[ -e ${BASE_DIR}/debug.env ]] && rm ${BASE_DIR}/debug.env
+[[ -e ${BASE_DIR}/settings.env ]] && rm ${BASE_DIR}/settings.env
 [[ -e $FILENAME_TEMP.index ]] && rm $FILENAME_TEMP.index
 rm $FILENAME_TEMP
 echo Finished $BASENAME.${OUTPUT_FORMAT}
