@@ -39,7 +39,7 @@ create_frontmatter() {
 get_manual_books() {
     MANUAL_BOOK=$(echo $1 |  sed 's/[./]/\\&/g')
     while read -r line; do
-    find "$line" -type f -maxdepth 1 \( -name "*.yml" -o -name "*.md" \) | sort -r
+    find "$line" -type f -maxdepth 1 \( -name "settings.yml" -o -name "${MARKDOWN_FILENAME}${MARKDOWN_EXTENSION}" \) | sort -r
     done < <( sed -n "/^${S}MANUAL_BOOK:${S}."${MANUAL_BOOK}"/{s/.*\[//;s/,${S}/\n/g;s/\]//;p;q}" ${BASE_DIR}/settingsGlobal.yml | sed '1s/.*/./' ) 
 }
 
