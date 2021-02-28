@@ -56,7 +56,7 @@ get_manual_book_source(){
 
 # gets settings for a given group; $1 = group name, $2 = file path
 get_settings() {
-        sed -n -e "/^${S}${1}/,$ p" $2 | sed "1d;s/^${S}//;/settings.*:${S}$/{s/.*//;q}" 
+        sed -n -e "/^${S}${1}:/,$ p" $2 | sed "1d;s/^${S}//;/settings.*:${S}$/{s/.*//;q}" 
 }
 
 # parses yml settings to env syntax
