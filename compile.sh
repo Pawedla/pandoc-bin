@@ -11,8 +11,6 @@ source venv/bin/activate
 # requirements can be added that are needed for pandoc filters
 pip install -r ./base/.pandoc/requirements.txt --no-binary :all:
 
-echo debugSettings
-get_settings "settingsCompile" "./settingsGlobal.yml"
 # loading env settings
 yml_to_env "$(get_settings "settingsCompile" "./settingsGlobal.yml")" | sed "s/.*\[.*\].*//" > settings.env
 source base/bin/base.env
