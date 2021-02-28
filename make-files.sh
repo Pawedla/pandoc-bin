@@ -138,11 +138,9 @@ echo ${PANDOC_COMMAND} $FILENAME_TEMP -o \""$OUTPUT_DIR/$BASENAME.${OUTPUT_FORMA
     -V logo-k=$BASE_DIR/base/.pandoc/templates/arr.pdf \
     -V img-cc=$BASE_DIR/base/.pandoc/templates/cc.png > start.sh 
 
-cat $FILENAME_TEMP
-cat start.sh
-
 # run pandoc command
 bash start.sh
+
 # remove files
 rm start.sh
 [[ -e ${BASE_DIR}/settings.env ]] && rm ${BASE_DIR}/settings.env
